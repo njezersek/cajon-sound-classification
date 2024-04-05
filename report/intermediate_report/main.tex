@@ -1,0 +1,83 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+
+\input{config.tex}
+\usepackage{layouts}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    basicstyle=\small,
+    language=python, 
+    breaklines, tabsize=2, 
+    frame=leftline,xleftmargin=10pt,xrightmargin=10pt,framesep=10pt
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Jernej Jezeršek}
+\lhead{Matematika z računalnikom}
+\rfoot{\thepage}
+
+
+\begin{document}
+\part*{Prepoznavanje zvokov cajona}
+{\Large Vmesno poročilo}
+
+\section{Problem}
+Rad bi naredil sistem, ki posluša igranje cajona\footnote{\textbf{cajon} [kahón] - tolkalo v obliki lesene resonančne škatle, na kateri se sedi in udarja po sprednji stranici, navadno z roko, lahko z različnimi udarjalkami, v notranjosti ima lahko napeto žico, mrežico, z dodanimi kraguljčki, značilno za perujsko glasbo, v zadnjem času tudi za špansko glasbo, uporablja se ga tudi kot priročno alternativo klasičnim bobnarskim kompletom}, v realnem času prepoznava zvoke udarcev in glede na zaznave predvaja nove sintetične zvoke. Ta problem sem razdelil na dva dela:
+\begin{enumerate}
+    \item zaznava udarcev
+    \item klasifikacija zvokov
+\end{enumerate}
+
+Prvi del sem že rešil z uporabo znanega algoritma za zaznavo udarcev (\emph{onset beat detection}) \cite{OnSetTemporal2004,OnSet2001}. Drugemu delu pa se bom posvetil v tem projektu. Cajon lahko ustvari dva različna zvoka. Če igramo po spodnjem delu inštrumenta dobimo nižji zvok (kick), če pa igramo po zgornjem delu pa dobimo višji zvok (snare). Poleg tega se zvoki razlikujejo glede na moč udarca. 
+
+Cilj tega projekta je razviti model, ki bo zvoke klasificiral v dva razreda (kick in snare). Ta problem postane težji, ko dodamo zahtevo, da mora model delovati v (skoraj) realnem času. To pomeni, da lahko za klasifikacijo uporabi le majhen del zvočnega signala (1 do 2 ms). Tako nizka zakasnitev je potrebna, da lahko med igranjem dodajamo druge zvoke ne da bi igralec opazil zakasnitev.
+
+\section{Pristop}
+
+\subsection{Orodja}
+Odločil sem se za uporabo programskega jezika Python, saj ima veliko zbirko knjižnic za obdelavo podatkov in strojno učenje. Za ta projekt sem uporabil oziroma nameravam uporabiti (med drugim) naslednje knjižnice: 
+\begin{itemize}
+    \item \texttt{scipy} - za branje in obdelavo zvočnih signalov
+    \item \texttt{numpy} - za delo z večdimenzionalnimi seznami
+    \item \texttt{scikit-learn} - za klasične metode strojnega učenja
+    \item \texttt{tensorflow} - za delo z nevronskimi mrežami
+    \item \texttt{matplotlib} - vizualizacija signalov in rezultatov
+\end{itemize}
+
+\subsection{Učna množica}
+Za testiranje različnih klasifikacijskih modelov je potrebna čim večja podatkovna množica. Za začetek sem ustvaril podatkovno množico iz zvokov svojega cajona. Za vsak razred (\emph{kick, snare}) in štiri različne jakosti (\emph{piano, mezzo piano, mezzo forte, forte}) sem posnel 60 zvokov (vse skupaj 480 zvokov) in jih s pomočjo algoritma za zaznavo udarcev razdelil na posamezne vzorce. Ker je ta množica relativno majhna, sem pri nekaterih pristopih uporabil pristop bogatenja podatkov (data augmentation) in z dodajanjem šuma, spremembo jakosti, frekvence, hitrosti in zamika ustvaril nove vzorce.
+
+\subsection{Določanje značilk}
+Rad bi preveril različne značilke:
+\begin{itemize}
+    \item \textbf{statistične značilke} kot so min, max, varianca, povprečna vrednost, momenti, ... na surovem signalu
+    \item \textbf{spektralne značilke}, ki izvirajo iz frekvenčnega spektra signala pridobljenega s pomočjo hitre Fourierove transformacije \cite{TimbreID2009}.
+    \item \textbf{surov signal} (brez značilk) modeli globokega učenja bodo morda lahko sami izluščili značilke iz surovega signala
+\end{itemize}
+
+\subsection{Modeli za klasifikacijo}
+Ker bi rad, da model deluje v realnem času (in morda celo na mikrokrmilniku), bi rad poiskal čim bolj preprost model, ki bo dovolj natančen. Pričakujem, da bo najboljši model predstavljal kompromis med natančnostjo in časovno zahtevnostjo. Nameravam preizkusiti naslednje modele:
+\begin{itemize}
+    \item \textbf{PCA}: predvsem za vizualizacijo podatkov in preverjanje, če kaka cenilka že sama po sebi dobro loči razrede
+    \item \textbf{logistična regresija}: preprost model za klasifikacijo dveh razredov
+    \item \textbf{k-najbližjih sosedov}: napoveduje razred glede na najbližje točke v prostoru značilk
+    \item \textbf{nakjučni gozd}: ansambelska metoda, ki združuje več odločitvenih dreves
+    \item \textbf{gosta nevronska mreža}: večji model, ki se bo morda bolje prilagodil podatkom
+    \item \textbf{konvolucijska nevronska mreža}: model, ki lahko sam izlušči značilke iz surovega signala
+\end{itemize}
+\section{Nadaljnji koraki}
+Zaenkrat sem preizkusil nekaj osnovnih modelov in sicer logistično regresijo, PCA, in gosto nevronsko mrežo. V naslednjem koraku bom sistematično preizkusil različne kombinacije značilk in klasifikacijskih modelov. Izmeril bom njihovo natančnost na (prej ne videni) testni množici in ocenil časovno zahtevnost.
+
+\bibliographystyle{plain}
+\renewcommand\refname{Literatura}
+\bibliography{refs}
+
+
+\end{document}
