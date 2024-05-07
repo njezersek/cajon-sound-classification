@@ -1,0 +1,43 @@
+{
+  "C_Cpp.intelliSenseEngine": "Tag Parser",
+  "idf.adapterTargetName": "esp32s3",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-bridge.cfg"
+  ],
+  "idf.flashType": "UART",
+  "idf.portWin": "COM5",
+  "files.associations": {
+    "*.html": "html",
+    "math.h": "c",
+    "cmath": "c",
+    "complex": "c",
+    "algorithm": "c",
+    "chrono": "c",
+    "i2s_common.h": "c",
+    "array": "c",
+    "deque": "c",
+    "list": "c",
+    "string": "c",
+    "unordered_map": "c",
+    "vector": "c",
+    "string_view": "c",
+    "initializer_list": "c",
+    "regex": "c",
+    "gpio.h": "c",
+    "*.tcc": "cpp",
+    "ratio": "cpp",
+    "system_error": "cpp",
+    "functional": "cpp",
+    "tuple": "cpp",
+    "type_traits": "cpp",
+    "utility": "cpp",
+    "led_strip.h": "c",
+    "bitset": "cpp",
+    "xmemory": "cpp",
+    "ostream": "cpp",
+    "ios": "cpp",
+    "span": "cpp",
+    "xstring": "cpp",
+    "xutility": "cpp"
+  }
+}
