@@ -1,0 +1,46 @@
+@ARTICLE{SmartCajon2018,
+	AUTHOR={Turchet, Luca and McPherson, Andrew and Barthet, Mathieu},   
+	TITLE={Real-Time Hit Classification in a Smart Cajón},      
+	JOURNAL={Frontiers in ICT},      
+	VOLUME={5},           
+	YEAR={2018},      
+	URL={https://www.frontiersin.org/articles/10.3389/fict.2018.00016},       
+	DOI={10.3389/fict.2018.00016},      
+	ISSN={2297-198X},   
+	ABSTRACT={Smart musical instruments are a class of IoT devices for music making, which encompass embedded intelligence as well as wireless connectivity. In previous work, we established design requirements for a novel smart musical instrument, a smart cajón, following a user-centered approach. This paper describes the implementation and technical evaluation of the designed component of the smart cajón related to hit classification and repurposing. A conventional acoustic cajón was enhanced with sensors to classify position of the hit and the gesture that produced it. The instrument was equipped with five piezo pickups attached to the internal panels and a condenser microphone located inside. The developed sound engine leveraged digital signal processing, sensor fusion, and machine learning techniques to classify the position, dynamics, and timbre of each hit. The techniques were devised and implemented to achieve low latency between action and the electronically-generated sounds, as well as keep computational efficiency high. The system was tuned to classify two main cajón playing techniques at different locations and we conducted evaluations using over 2,000 hits performed by two professional players. We first assessed the classification performance when training and testing data related to recordings from the same player. In this configuration, classification accuracies of 100% were obtained for hit detection and location. Accuracies of over 90% were obtained when classifying timbres produced by the two playing techniques. We then assessed the classifier in a cross-player configuration (training and testing were performed using recordings from different players). Results indicated that while hit location scales relatively well across different players, gesture identification requires that the involved classifiers are trained specifically for each musician.}
+}
+
+@article{TimbreID2009,
+	author = {Brent, William},
+	year = {2009},
+	month = {01},
+	pages = {},
+	title = {Cepstral analysis tools for percussive timbre identification}
+}
+
+
+@misc{OnSetTemporal2004,
+	title = {Real-time temporal segmentation of note objects in music signals},
+	abstract = {Segmenting note objects in a real time context is useful for live performances, audio broadcasting, or object-based coding. This temporal segmentation relies upon the correct detection of onsets and offsets of musical notes, an area of much research over recent years. However the low-latency requirements of real-time systems impose new, tight constraints on this process. In this paper, we present a system for the segmentation of note objects with very short delays, using recent developments in onset detection, specially modi ed to work in a real-time context. A portable and open C implementation is presented.},
+	author = {Brossier, P and Bello, JP and Plumbley, MD},
+	issn = {2223-3881},
+	journal = {Proceedings of ICMC 2004, the 30th Annual International Computer Music Conference},
+	keywords = {Electronic Engineering},
+	year = {2004},
+}
+
+@inbook{OnSet2001,
+	author = {Gustafsson, Fredrik},
+	chapter = {On-line Approaches},
+	title = {Adaptive Filtering and Change Detection},
+	year = {2001},
+}
+
+@inproceedings{OnSetNN2020,
+	author = {Chen, Ping-Hung and Ding, Jian-Jiun and Huang, Jin-Yu and Tseng, Tzu-Yun},
+	year = {2020},
+	month = {10},
+	pages = {1-5},
+	title = {Accurate Onset Detection Algorithm using Feature-Layer-Based Deep Learning Architecture},
+	doi = {10.1109/ISCAS45731.2020.9181255}
+}
